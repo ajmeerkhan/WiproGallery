@@ -9,10 +9,10 @@
 /* Begin PBXBuildFile section */
 		6AE2ED7F22A142AC008012AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE2ED7E22A142AC008012AB /* AppDelegate.swift */; };
 		6AE2ED8122A142AC008012AB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE2ED8022A142AC008012AB /* ViewController.swift */; };
-		6AE2ED8422A142AC008012AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AE2ED8222A142AC008012AB /* Main.storyboard */; };
 		6AE2ED8622A142AE008012AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AE2ED8522A142AE008012AB /* Assets.xcassets */; };
 		6AE2ED8922A142AE008012AB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AE2ED8722A142AE008012AB /* LaunchScreen.storyboard */; };
 		6AE2ED9422A142AE008012AB /* WiproGalleryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE2ED9322A142AE008012AB /* WiproGalleryTests.swift */; };
+		6AE2EDA022A14AC7008012AB /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AE2ED9F22A14AC7008012AB /* Alamofire.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,13 +29,13 @@
 		6AE2ED7B22A142AC008012AB /* WiproGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WiproGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AE2ED7E22A142AC008012AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6AE2ED8022A142AC008012AB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		6AE2ED8322A142AC008012AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6AE2ED8522A142AE008012AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6AE2ED8822A142AE008012AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6AE2ED8A22A142AE008012AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6AE2ED8F22A142AE008012AB /* WiproGalleryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WiproGalleryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AE2ED9322A142AE008012AB /* WiproGalleryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WiproGalleryTests.swift; sourceTree = "<group>"; };
 		6AE2ED9522A142AE008012AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6AE2ED9F22A14AC7008012AB /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6AE2EDA022A14AC7008012AB /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,6 +63,7 @@
 				6AE2ED7D22A142AC008012AB /* WiproGallery */,
 				6AE2ED9222A142AE008012AB /* WiproGalleryTests */,
 				6AE2ED7C22A142AC008012AB /* Products */,
+				6AE2ED9E22A14AC7008012AB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -79,7 +81,6 @@
 			children = (
 				6AE2ED7E22A142AC008012AB /* AppDelegate.swift */,
 				6AE2ED8022A142AC008012AB /* ViewController.swift */,
-				6AE2ED8222A142AC008012AB /* Main.storyboard */,
 				6AE2ED8522A142AE008012AB /* Assets.xcassets */,
 				6AE2ED8722A142AE008012AB /* LaunchScreen.storyboard */,
 				6AE2ED8A22A142AE008012AB /* Info.plist */,
@@ -96,6 +97,14 @@
 			path = WiproGalleryTests;
 			sourceTree = "<group>";
 		};
+		6AE2ED9E22A14AC7008012AB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6AE2ED9F22A14AC7008012AB /* Alamofire.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -106,6 +115,7 @@
 				6AE2ED7722A142AC008012AB /* Sources */,
 				6AE2ED7822A142AC008012AB /* Frameworks */,
 				6AE2ED7922A142AC008012AB /* Resources */,
+				6AB35DFA22A26AE10077368D /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -179,7 +189,6 @@
 			files = (
 				6AE2ED8922A142AE008012AB /* LaunchScreen.storyboard in Resources */,
 				6AE2ED8622A142AE008012AB /* Assets.xcassets in Resources */,
-				6AE2ED8422A142AC008012AB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,6 +200,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6AB35DFA22A26AE10077368D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/local/bin/carthage copy-frameworks\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6AE2ED7722A142AC008012AB /* Sources */ = {
@@ -221,14 +251,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		6AE2ED8222A142AC008012AB /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6AE2ED8322A142AC008012AB /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		6AE2ED8722A142AE008012AB /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -361,7 +383,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = WiproGallery/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -378,7 +405,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = WiproGallery/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

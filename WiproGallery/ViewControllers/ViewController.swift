@@ -30,7 +30,7 @@ class ViewController: UIViewController {
     
 
     @objc func refreshData () {
-        GalleryApi().fetchGallery { gallery,error,status  in
+        NetworkApi().fetchGallery { gallery,error,status  in
             if status {
                 DispatchQueue.main.async {
                     if let content = gallery, status {

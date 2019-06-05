@@ -18,17 +18,20 @@ class WiproGalleryTests: XCTestCase {
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    
+    func testNetworkLayer () {
+        let result = expectation(description: "NetworkLayer is Perfect")
+        
+        if let url = URL(string: "https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/facts.json"){
+            NetworkApi().callApi(url: url) { (data, error) in
+                XCTAssertNil(error)
+                XCTAssertNotNil(data, "Data Found")
+                result.fulfill()
+            }
+        }
+        
+        waitForExpectations(timeout: 10.0) { (error) in
+            XCTAssertNil(error, "Time Out")
         }
     }
-
 }

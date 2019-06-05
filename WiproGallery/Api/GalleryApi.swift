@@ -30,7 +30,6 @@ class GalleryApi: NSObject {
                     return
                 }
                 let utfData = Data(str.utf8)
-                print("Real String \(str)")
                 do {
                     let gallery = try JSONDecoder().decode(Gallery.self, from: utfData)
                     print("Real Data found")

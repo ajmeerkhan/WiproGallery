@@ -17,19 +17,35 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        createTheViewController()
         
-        navigationController?.title = "Loading..."
-
+        navigationItem.title = "Loading..."
+        
+        let button = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshData))
+        navigationItem.rightBarButtonItem = button
+        
         self.view.backgroundColor = UIColor(red: 239.0/255.0, green: 240.0/255.0, blue: 241.0/255.0, alpha: 1.0)
+
+        createTheViewController()
+    }
+    
+
+    @objc func refreshData () {
         GalleryApi().fetchGallery { gallery,error,status  in
-//            print("Gallery \(gallery)")
-            DispatchQueue.main.async {
-                if let content = gallery, status {
-                    self.navigationController?.title = content.title
-                    self.galleryContent = content.rows
-                    self.collectionView.reloadData()
-                    print("Reload Done")
+            if status {
+                DispatchQueue.main.async {
+                    if let content = gallery, status {
+                        self.navigationItem.title = content.title
+                        self.galleryContent = content.rows
+                        self.collectionView.reloadData()
+                        print("Reload Done")
+                    }
+                }
+            }else{
+                DispatchQueue.main.async {
+                    self.navigationItem.title = "Error Loading..."
+                    let alert = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
                 }
             }
         }
@@ -41,7 +57,6 @@ extension ViewController {
         
         //Initialize CollectionView
         let flowLayout = UICollectionViewFlowLayout()
-//        flowLayout.estimatedItemSize = CGSize(width: view.frame.width, height: 1.0)
         flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.delegate = self
@@ -58,14 +73,14 @@ extension ViewController {
         collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor).isActive = true
         collectionView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor).isActive = true
-        
+     
+        refreshData()
     }
 }
 
 extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("TOtal Rows : \(galleryContent.count)")
         return galleryContent.count
     }
     
@@ -96,12 +111,11 @@ extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate,
             height += descHeight.height
         }
         
-//        if galleryContent[indexPath.row].imageHref != nil {
-//            height +=
-//        }
-        
-        
-        return CGSize(width: collectionView.frame.width - 30, height: height )
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            return CGSize(width: (collectionView.frame.width / 2) - 30, height: height )
+        }else{
+            return CGSize(width: collectionView.frame.width - 30, height: height )
+        }
         
     }
     
@@ -110,35 +124,5 @@ extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets.init(top: 10, left: 0, bottom: 10, right: 0)
     }
-
-    
-
 }
-
-extension UIImageView {
-    func downloaded(from url: URL, contentMode mode: UIView.ContentMode = .scaleAspectFit) {  // for swift 4.2 syntax just use ===> mode: UIView.ContentMode
-        contentMode = mode
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            guard
-                let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
-                let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
-                let data = data, error == nil,
-                let image = UIImage(data: data)
-            else {
-                DispatchQueue.main.async {
-                    self.image = UIImage(named: "photos.png")
-                }
-                return
-            }
-            DispatchQueue.main.async() {
-                self.image = image
-            }
-            }.resume()
-    }
-    func downloaded(from link: String, contentMode mode: UIView.ContentMode = .scaleAspectFit) {  // for swift 4.2 syntax just use ===> mode: UIView.ContentMode
-        guard let url = URL(string: link) else { return }
-        downloaded(from: url, contentMode: mode)
-    }
-}
-
 

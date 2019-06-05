@@ -27,6 +27,8 @@ class GalleryCell: UICollectionViewCell {
         
         
         self.contentView.addSubview(galleryContentView)
+        galleryContentView.layer.cornerRadius = 10.0
+        galleryContentView.layer.masksToBounds = true
         galleryContentView.translatesAutoresizingMaskIntoConstraints = false
         galleryContentView.backgroundColor = .white
         
@@ -38,7 +40,7 @@ class GalleryCell: UICollectionViewCell {
 
         galleryContentView.addSubview(headerLabel)
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
-        headerLabel.backgroundColor = .green
+        headerLabel.backgroundColor = .clear
         headerLabel.font = .systemFont(ofSize: 16.0)
         headerLabel.numberOfLines = 0
         
@@ -60,7 +62,7 @@ class GalleryCell: UICollectionViewCell {
         
         galleryContentView.addSubview(descriptionLabel)
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        descriptionLabel.backgroundColor = .red
+        descriptionLabel.backgroundColor = .clear
         descriptionLabel.font = .systemFont(ofSize: 14.0)
         descriptionLabel.numberOfLines = 0
         descriptionLabel.textColor = .darkGray
@@ -90,9 +92,8 @@ class GalleryCell: UICollectionViewCell {
     }
         
     override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-        layoutIfNeeded()
-//        layoutAttributes.bounds.size.width = layoutAttributes.bounds.size.width/2
         layoutAttributes.bounds.size.height = systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
+//        layoutIfNeeded()
         return layoutAttributes
     }
     

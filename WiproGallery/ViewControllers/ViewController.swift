@@ -83,7 +83,7 @@ extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        var height :CGFloat = 30.0
+        var height :CGFloat = 180.0
         
         if let heading = galleryContent[indexPath.row].rowTitle {
             let headingHeight =  NSString(string: heading).boundingRect(with: CGSize(width: collectionView.frame.width - 30, height: CGFloat(MAXFLOAT)), options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 16.0)], context: nil)
@@ -96,8 +96,12 @@ extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate,
             height += descHeight.height
         }
         
+//        if galleryContent[indexPath.row].imageHref != nil {
+//            height +=
+//        }
         
-        return CGSize(width: collectionView.frame.width - 30, height: height + 150.0)
+        
+        return CGSize(width: collectionView.frame.width - 30, height: height )
         
     }
     
@@ -120,7 +124,12 @@ extension UIImageView {
                 let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
                 let data = data, error == nil,
                 let image = UIImage(data: data)
-                else { return }
+            else {
+                DispatchQueue.main.async {
+                    self.image = UIImage(named: "photos.png")
+                }
+                return
+            }
             DispatchQueue.main.async() {
                 self.image = image
             }

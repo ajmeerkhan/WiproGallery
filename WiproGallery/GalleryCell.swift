@@ -15,8 +15,6 @@ class GalleryCell: UICollectionViewCell {
     var imageView = UIImageView(frame: .zero)
     var descriptionLabel = UILabel(frame: .zero)
     
-    var errorLabel = UILabel(frame: .zero)
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -52,12 +50,14 @@ class GalleryCell: UICollectionViewCell {
         galleryContentView.addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .clear
+        imageView.contentMode = .scaleAspectFit
         
         imageView.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 5.0).isActive = true
         imageView.leadingAnchor.constraint(equalTo: galleryContentView.leadingAnchor).isActive = true
         imageView.trailingAnchor.constraint(equalTo: galleryContentView.trailingAnchor).isActive = true
-
-
+        imageView.isHidden = false
+        
+        
         galleryContentView.addSubview(descriptionLabel)
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.backgroundColor = .red
@@ -81,6 +81,8 @@ class GalleryCell: UICollectionViewCell {
                 imageView.downloaded(from: imageUrl)
                 imageView.heightAnchor.constraint(equalToConstant: 150.0).isActive = true
             }
+        }else{
+            imageView.image = UIImage(named: "photos.png")
         }
         setNeedsLayout()
         layoutIfNeeded()

@@ -73,7 +73,7 @@ class GalleryCell: UICollectionViewCell {
         descriptionLabel.bottomAnchor.constraint(equalTo: galleryContentView.bottomAnchor, constant: -10.0).isActive = true
     }
     
-    func dispalyTheGalleryUi (galleryRow :Row) {
+    func dispalyTheGalleryUI (galleryRow :Row) {
         
         headerLabel.text = galleryRow.rowTitle
         descriptionLabel.text = galleryRow.description

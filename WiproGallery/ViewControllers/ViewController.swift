@@ -89,7 +89,7 @@ extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate,
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "gallerycell", for: indexPath) as! GalleryCell
         cell.backgroundColor = .clear
         
-        cell.dispalyTheGalleryUi(galleryRow: galleryContent[indexPath.row])
+        cell.dispalyTheGalleryUI(galleryRow: galleryContent[indexPath.row])
         return cell
     }
     

@@ -40,32 +40,6 @@ class NetworkApi: NSObject {
                 }
             }
         }
-
-//        Alamofire.request(url).responseData(queue: .global(qos: .background)) { (responseData) in
-//            if responseData.result.isSuccess {
-//                guard let data = responseData.result.value else{
-//                    print("Error : No Data Found")
-//                    completion(nil, "No Data Found!", false)
-//                    return
-//                }
-//
-//                guard let str = String(bytes: data, encoding: .ascii) else {
-//                    completion(nil, "Encoding Error!", false)
-//                    return
-//                }
-//                let utfData = Data(str.utf8)
-//                do {
-//                    let gallery = try JSONDecoder().decode(Gallery.self, from: utfData)
-//                    print("Real Data found")
-//                    completion(gallery, "", true)
-//                }catch{
-//                    print("Parse Error :\(error.localizedDescription)")
-//                    completion(nil, error.localizedDescription, false)
-//                }
-//            }else{
-//                completion(nil, responseData.result.error?.localizedDescription ?? "Loading Failed!", false)
-//            }
-//        }
     }
     
     func callApi (url :URL, completionHandler: @escaping (_ responseData:Data?, _ responseError :Error?) -> Void){

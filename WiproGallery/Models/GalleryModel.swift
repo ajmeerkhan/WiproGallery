@@ -15,21 +15,21 @@ struct Gallery: Decodable {
 
 // MARK: - Row
 struct Row: Decodable {
-    let rowTitle :String?
+    let title :String?
     let description: String?
     let imageHref: String?
     
-    private enum CodingKeys: String, CodingKey {
-        case rowTitle = "title"
-        case rowDescription = "description"
-        case imageHref
-    }
-    
-    init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        rowTitle = try values.decodeIfPresent(String.self, forKey: .rowTitle)
-        description = try values.decodeIfPresent(String.self, forKey: .rowDescription)
-        imageHref = try values.decodeIfPresent(String.self, forKey: .imageHref)
-
-    }
+//    private enum CodingKeys: String, CodingKey {
+//        case rowTitle = "title"
+//        case rowDescription = "description"
+//        case imageHref
+//    }
+//    
+//    init(from decoder: Decoder) throws {
+//        let values = try decoder.container(keyedBy: CodingKeys.self)
+//        rowTitle = try values.decodeIfPresent(String.self, forKey: .rowTitle)
+//        description = try values.decodeIfPresent(String.self, forKey: .rowDescription)
+//        imageHref = try values.decodeIfPresent(String.self, forKey: .imageHref)
+//
+//    }
 }

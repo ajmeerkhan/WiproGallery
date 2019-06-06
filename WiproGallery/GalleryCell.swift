@@ -75,9 +75,8 @@ class GalleryCell: UICollectionViewCell {
     
     func dispalyTheGalleryUI (galleryRow :Row) {
         
-        headerLabel.text = galleryRow.rowTitle
+        headerLabel.text = galleryRow.title
         descriptionLabel.text = galleryRow.description
-        imageView.image = nil
         if let imageRef = galleryRow.imageHref {
             if let imageUrl = URL(string: imageRef) {
                 imageView.downloaded(from: imageUrl)
@@ -90,7 +89,7 @@ class GalleryCell: UICollectionViewCell {
         layoutIfNeeded()
 
     }
-        
+    
     override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
         layoutAttributes.bounds.size.height = systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
 //        layoutIfNeeded()

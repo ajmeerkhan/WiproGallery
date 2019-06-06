@@ -25,35 +25,55 @@ class ViewController: UIViewController {
         
         self.view.backgroundColor = UIColor(red: 239.0/255.0, green: 240.0/255.0, blue: 241.0/255.0, alpha: 1.0)
 
-        createTheViewController()
+        createTheGalleryCollectionView()
     }
     
 
     @objc func refreshData () {
-        NetworkApi().fetchGallery { gallery,error,status  in
-            if status {
-                DispatchQueue.main.async {
-                    if let content = gallery, status {
-                        self.navigationItem.title = content.title
-                        self.galleryContent = content.rows
+        guard let url = URL(string: "https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/facts.json") else {
+            return
+        }
+        NetworkApi().fetchGallery(url: url) { (response, error) in
+            if error == nil {
+                guard let data = response else{
+                    self.showErrorMessages(errorMessage: "No Data Found!")
+                    return
+                }
+                
+                guard let str = String(bytes: data, encoding: .ascii) else {
+                    self.showErrorMessages(errorMessage: "Encoding Error!")
+                    return
+                }
+                
+                let utfData = Data(str.utf8)
+                do {
+                    let gallery = try JSONDecoder().decode(Gallery.self, from: utfData)
+                    DispatchQueue.main.async {
+                        self.navigationItem.title = gallery.title
+                        self.galleryContent = gallery.rows
                         self.collectionView.reloadData()
-                        print("Reload Done")
                     }
+                }catch{
+                    self.showErrorMessages(errorMessage: error.localizedDescription)
                 }
             }else{
-                DispatchQueue.main.async {
-                    self.navigationItem.title = "Error Loading..."
-                    let alert = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
-                }
+                self.showErrorMessages(errorMessage: error?.localizedDescription ?? "Unexpected error!")
             }
+        }
+    }
+    
+    func showErrorMessages (errorMessage:String) {
+        DispatchQueue.main.async {
+            self.navigationItem.title = "Error Loading..."
+            let alert = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
         }
     }
 }
 
 extension ViewController {
-    func createTheViewController () {
+    func createTheGalleryCollectionView () {
         
         //Initialize CollectionView
         let flowLayout = UICollectionViewFlowLayout()
@@ -100,7 +120,7 @@ extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate,
         
         var height :CGFloat = 180.0
         
-        if let heading = galleryContent[indexPath.row].rowTitle {
+        if let heading = galleryContent[indexPath.row].title {
             let headingHeight =  NSString(string: heading).boundingRect(with: CGSize(width: collectionView.frame.width - 30, height: CGFloat(MAXFLOAT)), options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 16.0)], context: nil)
             height += headingHeight.height
         }
@@ -116,7 +136,6 @@ extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate,
         }else{
             return CGSize(width: collectionView.frame.width - 30, height: height )
         }
-        
     }
     
     func collectionView(_ collectionView: UICollectionView,

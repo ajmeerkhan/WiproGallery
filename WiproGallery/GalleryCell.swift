@@ -48,18 +48,6 @@ class GalleryCell: UICollectionViewCell {
         headerLabel.leadingAnchor.constraint(equalTo: galleryContentView.leadingAnchor, constant: 10.0).isActive = true
         headerLabel.trailingAnchor.constraint(equalTo: galleryContentView.trailingAnchor, constant: -10.0).isActive = true
         
-        
-        galleryContentView.addSubview(imageView)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.backgroundColor = .clear
-        imageView.contentMode = .scaleAspectFit
-        
-        imageView.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 5.0).isActive = true
-        imageView.leadingAnchor.constraint(equalTo: galleryContentView.leadingAnchor).isActive = true
-        imageView.trailingAnchor.constraint(equalTo: galleryContentView.trailingAnchor).isActive = true
-        imageView.isHidden = false
-        
-        
         galleryContentView.addSubview(descriptionLabel)
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.backgroundColor = .clear
@@ -67,10 +55,23 @@ class GalleryCell: UICollectionViewCell {
         descriptionLabel.numberOfLines = 0
         descriptionLabel.textColor = .darkGray
         
-        descriptionLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 5.0).isActive = true
+        descriptionLabel.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 5.0).isActive = true
         descriptionLabel.leadingAnchor.constraint(equalTo: galleryContentView.leadingAnchor, constant: 10.0).isActive = true
         descriptionLabel.trailingAnchor.constraint(equalTo: galleryContentView.trailingAnchor, constant: -10.0).isActive = true
-        descriptionLabel.bottomAnchor.constraint(equalTo: galleryContentView.bottomAnchor, constant: -10.0).isActive = true
+
+        
+        
+        galleryContentView.addSubview(imageView)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.backgroundColor = .clear
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = UIImage(named: "photos.png")
+
+        imageView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 5.0).isActive = true
+        imageView.leadingAnchor.constraint(equalTo: galleryContentView.leadingAnchor).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: galleryContentView.trailingAnchor).isActive = true
+        imageView.bottomAnchor.constraint(equalTo: galleryContentView.bottomAnchor, constant: -10.0).isActive = true
+        
     }
     
     func dispalyTheGalleryUI (galleryRow :Row) {
@@ -79,20 +80,22 @@ class GalleryCell: UICollectionViewCell {
         descriptionLabel.text = galleryRow.description
         if let imageRef = galleryRow.imageHref {
             if let imageUrl = URL(string: imageRef) {
-                imageView.downloaded(from: imageUrl)
-                imageView.heightAnchor.constraint(equalToConstant: 150.0).isActive = true
+                imageView.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photos.png"), options: .continueInBackground) { (image, error, cacheType, url) in
+                    if error == nil {
+                        self.imageView.image = image
+                    }
+                }
             }
         }else{
             imageView.image = UIImage(named: "photos.png")
         }
         setNeedsLayout()
         layoutIfNeeded()
-
     }
     
     override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
         layoutAttributes.bounds.size.height = systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
-//        layoutIfNeeded()
+        layoutIfNeeded()
         return layoutAttributes
     }
     

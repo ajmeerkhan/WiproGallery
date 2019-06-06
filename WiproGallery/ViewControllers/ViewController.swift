@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class ViewController: UIViewController {
     
@@ -108,7 +109,6 @@ extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate,
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "gallerycell", for: indexPath) as! GalleryCell
         cell.backgroundColor = .clear
-        
         cell.dispalyTheGalleryUI(galleryRow: galleryContent[indexPath.row])
         return cell
     }
@@ -116,25 +116,11 @@ extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate,
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        var height :CGFloat = 180.0
-        
-        if let heading = galleryContent[indexPath.row].title {
-            let headingHeight =  NSString(string: heading).boundingRect(with: CGSize(width: collectionView.frame.width - 30, height: CGFloat(MAXFLOAT)), options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 16.0)], context: nil)
-            height += headingHeight.height
-        }
-
-        
-        if let desc = galleryContent[indexPath.row].description {
-            let descHeight =  NSString(string: desc).boundingRect(with: CGSize(width: collectionView.frame.width - 30, height: CGFloat(MAXFLOAT)), options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 14.0)], context: nil)
-            height += descHeight.height
-        }
-        
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {        
         if UIDevice.current.userInterfaceIdiom == .pad {
-            return CGSize(width: (collectionView.frame.width / 2) - 30, height: height )
+            return CGSize(width: (collectionView.frame.width / 2) - 30, height: 250.0 )
         }else{
-            return CGSize(width: collectionView.frame.width - 30, height: height )
+            return CGSize(width: collectionView.frame.width - 30, height: 250.0 )
         }
     }
     

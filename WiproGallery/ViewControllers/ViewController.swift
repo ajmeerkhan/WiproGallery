@@ -12,6 +12,7 @@ import SDWebImage
 class ViewController: UIViewController {
     
     var collectionView :UICollectionView!
+    var flowLayout :UICollectionViewFlowLayout!
     
     var galleryContent :[Row] = []
 
@@ -76,19 +77,23 @@ class ViewController: UIViewController {
 extension ViewController {
     func createTheGalleryCollectionView () {
         
-        //Initialize CollectionView
-        let flowLayout = UICollectionViewFlowLayout()
+        //Initialize CollectionViewFlowLayout
+        flowLayout = UICollectionViewFlowLayout()
         flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        flowLayout.minimumInteritemSpacing = 10.0
+
+        //Initialize CollectionView
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = .clear
         self.view.addSubview(collectionView)
         
+        //Regiter the Gallery Cell with CollectionView
         collectionView.register(GalleryCell.self, forCellWithReuseIdentifier: "gallerycell")
 
         
-        //Position of ContainerView
+        //Position of CollectionView
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
@@ -108,19 +113,23 @@ extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate,
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "gallerycell", for: indexPath) as! GalleryCell
+        
         cell.backgroundColor = .clear
         cell.dispalyTheGalleryUI(galleryRow: galleryContent[indexPath.row])
+        cell.layoutIfNeeded()
         return cell
     }
     
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {        
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        // For iPad, we need 2 rows so divided the Width by 2
         if UIDevice.current.userInterfaceIdiom == .pad {
-            return CGSize(width: (collectionView.frame.width / 2) - 30, height: 250.0 )
+            return CGSize(width: (collectionView.frame.width / 2) - flowLayout.minimumInteritemSpacing, height: CGFloat.leastNormalMagnitude)
         }else{
-            return CGSize(width: collectionView.frame.width - 30, height: 250.0 )
+            return CGSize(width: collectionView.frame.width, height: CGFloat.leastNormalMagnitude )
         }
     }
     

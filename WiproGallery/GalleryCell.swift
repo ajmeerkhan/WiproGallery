@@ -26,7 +26,7 @@ class GalleryCell: UICollectionViewCell {
     private func setUpView (){
         
         
-        self.contentView.addSubview(galleryContentView)
+        contentView.addSubview(galleryContentView)
         galleryContentView.layer.cornerRadius = 10.0
         galleryContentView.layer.masksToBounds = true
         galleryContentView.translatesAutoresizingMaskIntoConstraints = false
@@ -35,8 +35,9 @@ class GalleryCell: UICollectionViewCell {
         galleryContentView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         galleryContentView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         galleryContentView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        galleryContentView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-
+        let gallertyBottonConst = galleryContentView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        gallertyBottonConst.priority = UILayoutPriority(999)
+        gallertyBottonConst.isActive = true
 
         galleryContentView.addSubview(headerLabel)
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -55,23 +56,23 @@ class GalleryCell: UICollectionViewCell {
         descriptionLabel.numberOfLines = 0
         descriptionLabel.textColor = .darkGray
         
-        descriptionLabel.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 5.0).isActive = true
-        descriptionLabel.leadingAnchor.constraint(equalTo: galleryContentView.leadingAnchor, constant: 10.0).isActive = true
-        descriptionLabel.trailingAnchor.constraint(equalTo: galleryContentView.trailingAnchor, constant: -10.0).isActive = true
+        descriptionLabel.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 10.0).isActive = true
+        descriptionLabel.leadingAnchor.constraint(equalTo: headerLabel.leadingAnchor).isActive = true
+        descriptionLabel.trailingAnchor.constraint(equalTo: headerLabel.trailingAnchor).isActive = true
 
-        
         
         galleryContentView.addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .clear
         imageView.contentMode = .scaleAspectFit
         imageView.image = UIImage(named: "photos.png")
-
-        imageView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 5.0).isActive = true
+        
+        imageView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 10.0).isActive = true
         imageView.leadingAnchor.constraint(equalTo: galleryContentView.leadingAnchor).isActive = true
         imageView.trailingAnchor.constraint(equalTo: galleryContentView.trailingAnchor).isActive = true
         imageView.bottomAnchor.constraint(equalTo: galleryContentView.bottomAnchor, constant: -10.0).isActive = true
-        
+
+
     }
     
     func dispalyTheGalleryUI (galleryRow :Row) {
